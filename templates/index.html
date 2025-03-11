@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+       
+        body { 
+    font-family: Arial, sans-serif; 
+    background: #121212; 
+    color: white; 
+    text-align: center; 
+    margin: 0; 
+    height: 100vh;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+}
+
+#chatbox { 
+    width: 90vw;
+    max-width: 600px;
+    height: 70vh;
+    overflow-y: auto; 
+    border: 1px solid #555; 
+    padding: 10px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: #222;
+}
+
+.message { 
+    margin: 10px 0; 
+    padding: 10px; 
+    border-radius: 8px; 
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user { 
+    background: #1e88e5; 
+    text-align: right; 
+    align-self: flex-end;
+    color: white;
+}
+
+.bot { 
+    background: #333; 
+    text-align: left; 
+    align-self: flex-start;
+    color: white;
+}
+
+input { 
+    width: 70vw;
+    max-width: 500px; 
+    padding: 12px; 
+    border: 1px solid #555; 
+    background: #222; 
+    color: white; 
+    outline: none;
+}
+
+button { 
+    padding: 12px; 
+    background: #1e88e5; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    margin-left: 5px;
+    max-width: 120px; 
+}
+
+button:hover {
+    background: #1565c0;
+}
+
+@media screen and (max-width: 600px) {
+    #chatbox {
+        width: 95vw;
+        height: 75vh;
+    }
+
+    input {
+        width: 65vw;
+    }
+
+    button {
+        width: 25vw;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <h2>Chat with our AI 🤖</h2>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        var socket = io();
+
+        function sendMessage() {
+            let input = document.getElementById("userInput");
+            let message = input.value;
+            if (message.trim() === "") return;
+            
+            // Display user message
+            let chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += `<div class='message user'>${message}</div>`;
+            input.value = "";
+
+            // Send message to server
+            socket.send(message);
+        }
+
+        socket.on("response", function(response) {
+            let chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += `<div class='message bot'>${response}</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        });
+    </script>
+</body>
+</html>

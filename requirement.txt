@@ -1,0 +1,6 @@
+flask
+flask-socketio
+sentence-transformers
+chromadb
+beautifulsoup4
+requests
