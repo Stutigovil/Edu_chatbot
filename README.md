@@ -16,8 +16,8 @@ Ensure you have **Python 3.8+** installed.
 
 1. **Clone the Repository**
    ```sh
-   git clone <your-repo-url>
-   cd <your-repo-folder>
+   git clone <https://github.com/Stutigovil/Edu_chatbot.git>
+
 2. **Install Dependencies**
     ```sh
     pip install -r requirements.txt
