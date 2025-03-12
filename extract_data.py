@@ -34,7 +34,7 @@ try:
         price = course.find(class_="price-per-session").text.strip() if course.find(class_="price-per-session") else "$30"
         description = course.find("p").text.strip() if course.find("p") else "No Description"
         no_lesson = course.find("li").text.strip() if course.find("i") else "No Lesson Info"
-        description_link=course.find(class_="BookDemo-btn").text.strip() if course.find( class_="BookDemo-btn") else "No Description"
+        description_link= "https://brainlox.com/courses/category/technical"
       
 
         
@@ -44,7 +44,7 @@ try:
         collection.add(
             ids=[str(idx)],
             embeddings=[embedding],
-            metadatas=[{"title": title, "price": price, "description": description, "lessons": no_lesson , "description_link":description_link}]
+            metadatas=[{"title": title, "price": price, "description": description, "lessons": no_lesson ,"description_link":description_link}]
         )
 
     print("Embeddings stored successfully in ChromaDB!")
